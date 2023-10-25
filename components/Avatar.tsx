@@ -18,8 +18,8 @@ function Avatar() {
       //    objectFit='contain'
       className="rounded-full"
       layout="fill"
-      src={ session?.user?.image}
-      alt={session?.user?.image}
+      src={ session.user.image}
+      alt={session.user.image}
     />
       }
      
