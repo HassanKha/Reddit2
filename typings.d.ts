@@ -1,4 +1,4 @@
-type Comment {
+interface Comment {
     created_at:string
   id: number 
   post_id: number
@@ -7,14 +7,14 @@ type Comment {
 }
 
 
-type Subreddit {
+interface Subreddit {
     created_at: string
   id: number 
   topic: string
 }
 
 
-type Vote {
+interface Vote {
     created_at: string
     id: number
     post_id: number
@@ -23,7 +23,7 @@ type Vote {
   }
   
 
-type Post {
+  interface Post {
 
     body: string
     created_at: string
