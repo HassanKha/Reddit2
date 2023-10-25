@@ -1,0 +1,311 @@
+type Comment {
+  created_at: DateTime!
+  id: ID!
+  post_id: ID!
+  text: String
+  username: String
+}
+
+type Post {
+  body: String!
+  created_at: DateTime!
+  id: ID!
+  image: String
+  subreddit_id: ID
+  title: String!
+  username: String
+  subreddit: [Subreddit]
+    @materializer(
+      query: "subredditListByID"
+      arguments: [{ name: "id", field: "subreddit_id" }]
+    )
+  votes: [Vote]
+    @materializer(
+      query: "voteListByPostID"
+      arguments: [{ name: "post_id", field: "id" }]
+    )
+  comments: [Comment]
+    @materializer(
+      query: "commentListByPostID"
+      arguments: [{ name: "post_id", field: "id" }]
+    )
+}
+
+type Subreddit {
+  created_at: DateTime!
+  id: ID!
+  topic: String!
+}
+
+type Vote {
+  created_at: DateTime!
+  id: ID!
+  post_id: ID
+  upvote: Boolean
+  username: String
+}
+
+"""
+The following queries are just a set of examples of how to access your schema.
+Feel free to modify them or aggregate more.
+"""
+type Query {
+  " Queries for type 'Comment' "
+  commentList: [Comment]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "comment"
+      configuration: "stepzen_config"
+    )
+
+  commentListByPostID(post_id: ID!): [Comment]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT * from "comment" where "post_id" = $1
+      """
+      configuration: "stepzen_config"
+    )
+
+  commentPaginatedList(first: Int, after: Int): [Comment]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "created_at", "id", "post_id", "text", "username" FROM "comment" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Post' "
+  postBySubreddit_id(subreddit_id: ID!): [Post]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "post"
+      configuration: "stepzen_config"
+    )
+  postBySubreddit_idAndBody(subreddit_id: ID!, body: String!): [Post]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "post"
+      configuration: "stepzen_config"
+    )
+  postList: [Post]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT * FROM "post" order by "post"."created_at" desc
+      """
+      configuration: "stepzen_config"
+    )
+
+     getpostByID(id:ID!): [Post]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT * FROM "post" where "post".id = $1
+      """
+      configuration: "stepzen_config"
+    )
+
+    postListbysubredditTopic(topic: String!): [Post]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *, "post".id as id FROM "post" join "subreddit" on "subreddit".id = "post"."subreddit_id" where "subreddit"."topic" = $1  order by "post"."created_at" desc
+      """
+      configuration: "stepzen_config"
+    )
+   
+  postPaginatedList(first: Int, after: Int): [Post]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "body", "created_at", "id", "image", "subreddit_id", "title", "username" FROM "post" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Subreddit' "
+  subredditList: [Subreddit]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "subreddit"
+      configuration: "stepzen_config"
+    )
+
+  subredditListByID(id: ID!): [Subreddit]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT * FROM "subreddit" where "id" = $1
+      """
+      configuration: "stepzen_config"
+    )
+
+  subredditListByTopic(topic: String!): [Subreddit]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT * FROM "subreddit" where "topic" = $1
+      """
+      configuration: "stepzen_config"
+    )
+
+  subredditPaginatedList(first: Int): [Subreddit]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT * FROM "subreddit" order by "created_at" desc LIMIT $1 
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Vote' "
+  voteList: [Vote]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "vote"
+      configuration: "stepzen_config"
+    )
+
+  voteListByPostID(post_id: ID!): [Vote]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT * FROM "vote" where "post_id" = $1
+      order by "created_at" desc
+      """
+      configuration: "stepzen_config"
+    )
+
+  votePaginatedList(first: Int, after: Int): [Vote]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "created_at", "id", "post_id", "upvote", "username" FROM "vote" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+}
+
+"""
+The following mutations are just a set of examples of how to access your schema.
+Feel free to modify them or aggregate more.
+"""
+type Mutation {
+  " Mutations for type 'Comment' "
+  deleteComment(
+    username: String!
+    post_id: ID!
+    text: String!
+    id: ID!
+    created_at: DateTime!
+  ): Comment
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "comment"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertComment(
+    username: String!
+    post_id: ID!
+    text: String!
+  ): Comment
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "comment"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Post' "
+  deletePost(
+    body: String!
+    subreddit_id: ID!
+    id: ID!
+    created_at: DateTime!
+    title: String!
+    username: String!
+    image: String!
+  ): Post
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "post"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertPost(
+    body: String!
+    subreddit_id: ID!
+    title: String!
+    username: String
+    image: String!
+  ): Post
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "post"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Subreddit' "
+  deleteSubreddit(topic: String!, created_at: DateTime!, id: ID!): Subreddit
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "subreddit"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertSubreddit(topic: String): Subreddit
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "subreddit"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'Vote' "
+  deleteVote(
+    username: String!
+    post_id: ID!
+    id: ID!
+    created_at: DateTime!
+    upvote: Boolean!
+  ): Vote
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "vote"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  insertVote(
+    username: String
+    post_id: ID
+    upvote: Boolean
+  ): Vote
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "vote"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+}
