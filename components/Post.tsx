@@ -22,9 +22,10 @@ import { ADD_VOTE } from "../graphql/mutations";
 interface Props {
   post: Post;
   loading: boolean;
+  key: number;
 }
 
-function Post({ post, Loading }: Props) {
+function Post({  post, Loading , key }: Props) {
   if (Loading)
     return (
       <div className="flex w-full items-center justify-center p-10 text-xl">
