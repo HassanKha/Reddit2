@@ -77,7 +77,7 @@ function Post({ key ,  post, Loading  }: Props) {
   useEffect(()=> {
     const votes: Vote[] = data?.voteListByPostID
 
-    const vote = votes?.find(vote => vote.username == session?.user.name)?.upvote
+    const vote = votes?.find(vote => vote.username == session?.user?.name)?.upvote
 
     setVote(vote)
   }, [data])
