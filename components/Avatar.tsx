@@ -10,7 +10,7 @@ function Avatar() {
         //    objectFit='contain'
         className="rounded-full"
         layout="fill"
-        src={!session ? `https://avatars.dicebear.com/api/open-peeps/placeholder.svg` : session.user.image}
+        src={!session ? `https://avatars.dicebear.com/api/open-peeps/placeholder.svg` : session?.user?.image}
         alt={session?.user?.image || 'https://avatars.dicebear.com/api/open-peeps/placeholder.svg'}
       />
      
