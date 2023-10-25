@@ -22,7 +22,7 @@ export default function Feed({ topic }: Props) {
 
   return (
     <div className="mt-5 space-y-4">
-      {postList?.map((post) => (
+      {postList?.map((post : Post) => (
         <Post key={post.id} post={post} Loading={loading}  />
       ))}
     </div>
