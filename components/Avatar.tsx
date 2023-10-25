@@ -6,6 +6,7 @@ import {
 } from "@heroicons/react/24/solid";
 function Avatar() {
   const { data: session } = useSession();
+  const defaultImage = "https://avatars.dicebear.com/api/open-peeps/placeholder.svg";
   return (
     <div className="relative h-10 w-10 rounded-full border-gray-300 bg-white ">
       <UserCircleIcon
@@ -13,13 +14,13 @@ function Avatar() {
        
       />
 
-      {session && 
+      {session && session.user &&
       <Image
       //    objectFit='contain'
       className="rounded-full"
       layout="fill"
-      src={ session.user.image}
-      alt={session.user.image}
+      src={ session.user.image || defaultImage}
+      alt={session.user.image || defaultImage}
     />
       }
      
