@@ -20,12 +20,13 @@ import { useMutation } from "@apollo/client";
 import { ADD_VOTE } from "../graphql/mutations";
 
 interface Props {
-  post: Post;
-  loading: boolean;
   key: number;
+  post: Post;
+  Loading: boolean;
+  
 }
 
-function Post({  post, Loading , key }: Props) {
+function Post({ key ,  post, Loading  }: Props) {
   if (Loading)
     return (
       <div className="flex w-full items-center justify-center p-10 text-xl">
