@@ -120,7 +120,7 @@ console.log(insertSubreddit , 'insert topic')
           className="flex-1 rounded-md bg-gray-50 p-2 pl-5 outline-none"
           type="text"
           disabled={!session}
-          type="text"
+ 
           placeholder={
             session ? subreddit ? `Create a Post in r/${subreddit}` : "Create a post by entering a title!" : "Sign in to post"
           }
