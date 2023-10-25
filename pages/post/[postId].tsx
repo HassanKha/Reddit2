@@ -73,7 +73,7 @@ function PostPage() {
           Comment as <span className="text-red-500">{session?.user?.name}</span>
         </p>
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={onSubmit}
           className="flex max-w-5xl space-y-2 flex-col "
         >
           <textarea
