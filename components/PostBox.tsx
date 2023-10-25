@@ -41,7 +41,7 @@ function PostBox({subreddit} : Props) {
 
   const onSubmit = handleSubmit(async (formData) => {
     const notification = toast.loading("Creating new post...");
-
+ const profile = session?.user?.image;
     try {
       const {
         data: { subredditListByTopic },
@@ -57,6 +57,7 @@ function PostBox({subreddit} : Props) {
 
       const image = formData.postImage || "";
       console.log(subredditListByTopic , 'is found')
+
       if (!SubExist) {
         const {
           data: { insertSubreddit },
@@ -64,7 +65,7 @@ function PostBox({subreddit} : Props) {
           mutation: ADD_SUBREDDIT,
           variables: {
             topic: subreddit || formData.subreddit,
-            subredditprofile: session?.user?.image
+            subredditprofile: profile
           },
         });
 console.log(insertSubreddit , 'insert topic')
@@ -78,7 +79,7 @@ console.log(insertSubreddit , 'insert topic')
             subreddit_id: insertSubreddit?.[0]?.id,
             title: formData.postTitle,
             username: session?.user?.name,
-            postprofile: session?.user?.image,
+            postprofile: profile,
           }
         });
         console.log(insertPost , 'insert post')
@@ -92,7 +93,7 @@ console.log(insertSubreddit , 'insert topic')
             subreddit_id: subredditListByTopic?.[0].id,
             title: formData.postTitle,
             username: session?.user?.name,
-            postprofile: session?.user?.image,
+            postprofile: profile,
           },
         });
       }
