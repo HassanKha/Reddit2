@@ -38,7 +38,7 @@ function PostPage() {
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
+  const onSubmit = handleSubmit ( async (data) => {
     const notification = toast.loading("Creating new Comment...");
 
     const { data: insertComment } = await addComment({
@@ -53,7 +53,7 @@ function PostPage() {
     toast.success("New Comment Created!!!", {
       id: notification,
     });
-  };
+  });
 
   console.log(post);
   return (
