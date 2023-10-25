@@ -4,7 +4,7 @@ import { GetpostByID } from "../../graphql/queries";
 import { useQuery } from "@apollo/client";
 import Post from "../../components/Post";
 import { useSession } from "next-auth/react";
-import { useForm, SubmitHandler, handleSubmit } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { useMutation } from "@apollo/client";
 import { ADD_COMMENT } from "../../graphql/mutations";
 import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
