@@ -24,7 +24,7 @@ interface Props {
 function PostBox({subreddit} : Props) {
 
   const { data: session } = useSession();
-  const [profile,setprofile]=useState<string>('')
+  const [profile,setprofile]=useState<any>('')
   const client = createApolloClient();
    const [addPost] = useMutation(ADD_POST , {
     refetchQueries: [
@@ -43,10 +43,15 @@ function PostBox({subreddit} : Props) {
 
 useEffect(()=>{
 
+  if(!session){
+    return
+  }
+
   if( session?.user){
     console.log('here')
-    setprofile(session.user.image)
+    setprofile(session?.user?.image)
   }
+
 },[session,session?.user])
 
   const onSubmit = handleSubmit(async (formData) => {
