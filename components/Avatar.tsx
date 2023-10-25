@@ -4,8 +4,9 @@ import Image from "next/image";
 import {
  UserCircleIcon
 } from "@heroicons/react/24/solid";
-function Avatar() {
-  const { data: session } = useSession();
+function Avatar({image}) {
+
+  //console.log(image , 'avatar')
   const defaultImage = "https://avatars.dicebear.com/api/open-peeps/placeholder.svg";
   return (
     <div className="relative h-10 w-10 rounded-full border-gray-300 bg-white ">
@@ -14,15 +15,17 @@ function Avatar() {
        
       />
 
-      {session && session.user &&
+
+ {image  &&
       <Image
       //    objectFit='contain'
       className="rounded-full"
       layout="fill"
-      src={ session.user.image || defaultImage}
-      alt={session.user.image || defaultImage}
+      src={ image}
+      alt={image}
     />
       }
+
      
     </div>
   );

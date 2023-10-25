@@ -53,13 +53,14 @@ function Post({ key ,  post, Loading  }: Props) {
     if(vote && isUpvote) return ;
     if(vote === false && !isUpvote) return;
 
-    await addVote({
+   const h=  await addVote({
       variables: {
         post_id:post.id,
         upvote: isUpvote,
         username: session?.user?.name
       }
     })
+    console.log(h,'h')
   };
 
   const displayVotes = (data: any) => {
@@ -81,6 +82,7 @@ function Post({ key ,  post, Loading  }: Props) {
 
     setVote(vote)
   }, [data])
+ // console.log(post)
 
   return (
     <Link href={`/post/${post?.id}`}>
@@ -100,7 +102,7 @@ function Post({ key ,  post, Loading  }: Props) {
         <div className="p-3 pb-1">
           {/* Header  */}
           <div className="flex items-center space-x-2">
-            <Avatar />
+            <Avatar image = {post?.postprofile}/>
             <p className="text-sm text-gray-400">
               <Link
                 href={`subreddit/${post?.subreddit[0]?.topic}`}

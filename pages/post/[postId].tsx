@@ -55,6 +55,7 @@ function PostPage() {
         post_id: router?.query?.postId,
         text: data.comment,
         username: session?.user?.name,
+        commentprofile: session?.user?.image,
       },
     });
 
@@ -64,7 +65,7 @@ function PostPage() {
     });
   });
 
-  console.log(post);
+  //console.log(post);
   return (
     <div className="mx-auto my-7 max-w-5xl">
       <Post key={post?.id} post={post} Loading={loading} />
@@ -99,14 +100,14 @@ function PostPage() {
           <div className="relative flex items-center space-x-2 space-y-5" key={comment?.id}>
             <hr className='absolute z-0 top-10 h-16 border left-7' />
             <div className='z-50' >
-              <Avatar />
+              <Avatar image={comment.commentprofile}  />
             </div>
             <div className='flex flex-col'>
               <p className='py-2 text-xs text-gray-400'>
                 <span className='font-semibold text-gray-600' >{comment?.username}</span>{" "}
-                <TimeAgo date={comment.created_at} />
+                <TimeAgo date={comment?.created_at} />
               </p>
-              <p>{comment.text}</p>
+              <p>{comment?.text}</p>
             </div>
           </div>
         ))}

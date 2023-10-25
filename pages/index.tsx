@@ -29,7 +29,7 @@ export default function Home() {
           <p className="text-md mb-1 p-4 pb-3 font-bold">Top Communities</p>
           <div>
             {subreddits?.map((subreddit, i) => (
-              <SubredditRow key={subreddit.id} index={i} topic={subreddit.topic} />
+              <SubredditRow key={subreddit.id} index={i} topic={subreddit.topic} subredditprofile={subreddit.subredditprofile} />
             ))}
           </div>
         </div>

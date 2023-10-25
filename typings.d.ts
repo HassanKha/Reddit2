@@ -4,6 +4,7 @@ interface Comment {
   post_id: number
   text: string
   username: string
+  commentprofile: string
 }
 
 
@@ -11,6 +12,7 @@ interface Subreddit {
     created_at: string
   id: number 
   topic: string
+  subredditprofile: string
 }
 
 
@@ -35,4 +37,5 @@ interface Vote {
     votes : Vote[]
     comments: Comment[]
     subreddit : Subreddit[]
+    postprofile: string
 }

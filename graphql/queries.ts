@@ -1,11 +1,12 @@
 import { gql, useQuery } from "@apollo/client";
 
 export const SubredditListByTopic = gql`
-  query Myquery($topic: String!) {
+  query Myquery($topic: String! ) {
     subredditListByTopic(topic: $topic) {
       id
       topic
       created_at
+      subredditprofile
     }
   }
 `;
@@ -14,12 +15,14 @@ export const GetAllPosts = gql`
   query Myquery {
     postList {
       body
+      postprofile
       comments {
         created_at
         id
         post_id
         text
         username
+        commentprofile
       }
       created_at
       id
@@ -28,6 +31,7 @@ export const GetAllPosts = gql`
         created_at
         id
         topic
+        subredditprofile
       }
       subreddit_id
       title
@@ -47,12 +51,14 @@ export const GetpostsbyTopic = gql`
  query Myquery($topic: String!) {
   postListbysubredditTopic(topic: $topic) {
       body
+      postprofile
       comments {
         created_at
         id
         post_id
         text
         username
+        commentprofile
       }
       created_at
       id
@@ -61,6 +67,7 @@ export const GetpostsbyTopic = gql`
         created_at
         id
         topic
+        subredditprofile
       }
       subreddit_id
       title
@@ -80,6 +87,7 @@ export const GetpostByID = gql`
  query Myquery($id: ID!) {
   getpostByID(id: $id) {
     body
+    postprofile
     created_at
     id
     image
@@ -92,11 +100,13 @@ export const GetpostByID = gql`
       post_id
       text
       username
+      commentprofile
     }
     subreddit {
       created_at
       id
       topic
+      subredditprofile
     }
     votes {
       created_at
@@ -129,6 +139,7 @@ export const SubredditPaginatedList = gql`
     created_at
       id
       topic
+      subredditprofile
     }
   }
 

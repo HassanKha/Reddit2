@@ -3,17 +3,20 @@ import { useRouter } from "next/router";
 import Avatar from "./../../components/Avatar";
 import PostBox from './../../components/PostBox';
 import Feed from "../../components/Feed"
+
+import { useSession } from 'next-auth/react';
 function Subreddit() {
   const {
     query: { topic },
   } = useRouter();
-console.log(topic)
+console.log(useRouter())
+const { data: session }  = useSession()
   return (
     <div className={`h-24 bg-red-400 p-8`}>
       <div className="-mx-8 mt-10 bg-white">
         <div className="mx-auto flex max-w-5xl space-x-4 pb-3 items-center ">
           <div className="-mt-5 ml-2">
-            <Avatar />
+            <Avatar image={session?.user?.image} />
           </div>
 
           <div>

@@ -7,6 +7,8 @@ export const ADD_POST = gql`
     $subreddit_id: ID!
     $title: String!
     $username: String
+    $postprofile: String!
+
   ) {
     insertPost(
       body: $body
@@ -14,6 +16,7 @@ export const ADD_POST = gql`
       title: $title
       username: $username
       image: $image
+      postprofile: $postprofile
     ) {
       body
       created_at
@@ -27,23 +30,25 @@ export const ADD_POST = gql`
 `;
 
 export const ADD_SUBREDDIT = gql`
-  mutation MyMutation($topic: String!) {
-    insertSubreddit(topic: $topic) {
+  mutation MyMutation($topic: String! , $subredditprofile: String!) {
+    insertSubreddit(topic: $topic , subredditprofile: $subredditprofile) {
       id
       topic
       created_at
+      subredditprofile
     }
   }
 `;
 
 export const ADD_COMMENT = gql`
-  mutation MyMutation($username: String!, $post_id: ID!, $text: String!) {
-    insertComment(username: $username, post_id: $post_id, text: $text) {
+  mutation MyMutation($username: String!, $post_id: ID!, $text: String! , $commentprofile: String!) {
+    insertComment(username: $username, post_id: $post_id, text: $text, commentprofile: $commentprofile) {
       created_at
       id
       post_id
       text
       username
+      commentprofile
     }
   }
 `;

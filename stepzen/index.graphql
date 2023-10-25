@@ -4,6 +4,7 @@ type Comment {
   post_id: ID!
   text: String
   username: String
+  commentprofile: String!
 }
 
 type Post {
@@ -14,6 +15,7 @@ type Post {
   subreddit_id: ID
   title: String!
   username: String
+  postprofile: String!
   subreddit: [Subreddit]
     @materializer(
       query: "subredditListByID"
@@ -29,12 +31,14 @@ type Post {
       query: "commentListByPostID"
       arguments: [{ name: "post_id", field: "id" }]
     )
+
 }
 
 type Subreddit {
   created_at: DateTime!
   id: ID!
   topic: String!
+  subredditprofile: String!
 }
 
 type Vote {
@@ -225,6 +229,7 @@ type Mutation {
     username: String!
     post_id: ID!
     text: String!
+    commentprofile: String!
   ): Comment
     @dbquery(
       type: "postgresql"
@@ -256,6 +261,7 @@ type Mutation {
     title: String!
     username: String
     image: String!
+    postprofile: String!
   ): Post
     @dbquery(
       type: "postgresql"
@@ -273,7 +279,7 @@ type Mutation {
       dml: DELETE
       configuration: "stepzen_config"
     )
-  insertSubreddit(topic: String): Subreddit
+  insertSubreddit(topic: String , subredditprofile: String!): Subreddit
     @dbquery(
       type: "postgresql"
       schema: "public"

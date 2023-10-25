@@ -49,6 +49,7 @@ function PostBox({subreddit} : Props) {
         query: SubredditListByTopic,
         variables: {
           topic: subreddit || formData.subreddit,
+        
         },
       });
 
@@ -63,6 +64,7 @@ function PostBox({subreddit} : Props) {
           mutation: ADD_SUBREDDIT,
           variables: {
             topic: subreddit || formData.subreddit,
+            subredditprofile: session?.user?.image
           },
         });
 console.log(insertSubreddit , 'insert topic')
@@ -73,9 +75,10 @@ console.log(insertSubreddit , 'insert topic')
           variables: {
             body: formData.postBody,
             image: image,
-            subreddit_id: insertSubreddit?.[0].id,
+            subreddit_id: insertSubreddit?.[0]?.id,
             title: formData.postTitle,
             username: session?.user?.name,
+            postprofile: session?.user?.image,
           }
         });
         console.log(insertPost , 'insert post')
@@ -89,6 +92,7 @@ console.log(insertSubreddit , 'insert topic')
             subreddit_id: subredditListByTopic?.[0].id,
             title: formData.postTitle,
             username: session?.user?.name,
+            postprofile: session?.user?.image,
           },
         });
       }
@@ -114,7 +118,7 @@ console.log(insertSubreddit , 'insert topic')
       className="sticky p-1 top-16 rounded-md border border-gray-300 z-50 bg-white"
     >
       <div className="flex items-center space-x-3">
-        <Avatar />
+        <Avatar image = {session?.user?.image} />
         <input
           {...register("postTitle", { required: true })}
           className="flex-1 rounded-md bg-gray-50 p-2 pl-5 outline-none"
