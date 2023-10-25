@@ -12,6 +12,15 @@ import toast from "react-hot-toast";
 import Avatar from "../../components/Avatar";
 import TimeAgo from "react-timeago";
 
+
+
+
+type FormData = {
+  comment: string;
+
+
+};
+
 function PostPage() {
   const router = useRouter();
   loadDevMessages();
