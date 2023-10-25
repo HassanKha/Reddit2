@@ -4,7 +4,7 @@ import Image from "next/image";
 
 function Avatar() {
   const { data: session } = useSession();
-  const defaultImage = "https://avatars.dicebear.com/api/open-peeps/placeholder.svg";
+  const defaultImage: string = "https://avatars.dicebear.com/api/open-peeps/placeholder.svg";
   return (
     <div className="relative h-10 w-10 rounded-full border-gray-300 bg-white ">
       <Image
