@@ -9,9 +9,7 @@ function Avatar() {
   return (
     <div className="relative h-10 w-10 rounded-full border-gray-300 bg-white ">
       <UserCircleIcon
-        //    objectFit='contain'
         className="rounded-full"
-        layout="fill"
         src={ session?.user?.image}
         alt={ session?.user?.image}
       />
