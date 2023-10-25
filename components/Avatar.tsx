@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/24/solid";
 
 interface Props {
-  image: string
+  image: any
 }
 
 
