@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { useSession } from "next-auth/react";
 import Avatar from "./Avatar";
 import { LinkIcon, PhotoIcon } from "@heroicons/react/24/outline";
@@ -22,7 +22,9 @@ interface Props {
 };
 
 function PostBox({subreddit} : Props) {
+
   const { data: session } = useSession();
+  const [profile,setprofile]=useState('')
   const client = createApolloClient();
    const [addPost] = useMutation(ADD_POST , {
     refetchQueries: [
@@ -39,9 +41,16 @@ function PostBox({subreddit} : Props) {
     formState: { errors },
   } = useForm<FormData>();
 
+useEffect(()=>{
+
+  if(session){
+    setprofile(session.user.image)
+  }
+},[session])
+
   const onSubmit = handleSubmit(async (formData) => {
     const notification = toast.loading("Creating new post...");
- const profile = session?.user?.image;
+ //const profile = session?.user?.image;
     try {
       const {
         data: { subredditListByTopic },
