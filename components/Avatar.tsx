@@ -4,7 +4,13 @@ import Image from "next/image";
 import {
  UserCircleIcon
 } from "@heroicons/react/24/solid";
-function Avatar({image} : string) {
+
+interface Props {
+  image: string
+}
+
+
+function Avatar({image} : Props) {
 
   //console.log(image , 'avatar')
   const defaultImage = "https://avatars.dicebear.com/api/open-peeps/placeholder.svg";
