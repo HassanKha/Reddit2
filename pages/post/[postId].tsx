@@ -67,7 +67,7 @@ function PostPage() {
   console.log(post);
   return (
     <div className="mx-auto my-7 max-w-5xl">
-      <Post post={post} Loading={loading} />
+      <Post key={post.id} post={post} Loading={loading} />
       <div className=" pl-16 -mt-1 rounded-b-md border p-5 border-t-0 border-gray-300 bg-white">
         <p className="text-sm">
           Comment as <span className="text-red-500">{session?.user?.name}</span>
