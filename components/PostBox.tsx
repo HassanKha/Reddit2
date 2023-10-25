@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import Avatar from "./Avatar";
 import { LinkIcon, PhotoIcon } from "@heroicons/react/24/outline";
-import { useForm, SubmitHandler, handleSubmit } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { ADD_POST } from "./../graphql/mutations";
 import { ADD_SUBREDDIT } from "../graphql/mutations";
 import createApolloClient from "../apollo-client";
