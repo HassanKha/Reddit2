@@ -10,7 +10,7 @@ type Props = {
 };
 
 export default function Feed({ topic }: Props) {
-  console.log(topic, 'feed');
+ // console.log(topic, 'feed');
   const { data, error , loading } = topic
     ? useQuery(GetpostsbyTopic, {
         variables: {
@@ -19,7 +19,7 @@ export default function Feed({ topic }: Props) {
       })
     : useQuery(GetAllPosts);
   const postList = topic ? data?.postListbysubredditTopic : data?.postList;
-console.log(error , data)
+//console.log(error , data)
   return (
     <div className="mt-5 space-y-4">
       {postList?.map((post : Post) => (

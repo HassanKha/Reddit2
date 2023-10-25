@@ -44,6 +44,7 @@ function PostBox({subreddit} : Props) {
 useEffect(()=>{
 
   if(session){
+    console.log('here')
     setprofile(session.user.image)
   }
 },[session])
@@ -51,6 +52,7 @@ useEffect(()=>{
   const onSubmit = handleSubmit(async (formData) => {
     const notification = toast.loading("Creating new post...");
  //const profile = session?.user?.image;
+ console.log(profile)
     try {
       const {
         data: { subredditListByTopic },
@@ -76,7 +78,7 @@ useEffect(()=>{
             topic: subreddit || formData.subreddit,
             subredditprofile: profile
           },
-        }).then((res)=> res);
+        });
 
 console.log(insertSubreddit , 'insert topic')
 
