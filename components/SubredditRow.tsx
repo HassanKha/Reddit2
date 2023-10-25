@@ -7,7 +7,7 @@ import  Link from 'next/link';
 interface Props {
   topic: string;
   index: number;
-  postprofile: string
+  subredditprofile: string
 }
 
 function SubredditRow({ index, topic , subredditprofile }: Props) {
