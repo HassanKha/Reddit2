@@ -26,7 +26,7 @@ function Header() {
     <div className="items-center sticky z-50 top-0 flex bg-white px-4 py-2 shadow-sm">
       <div className="relative h-10 w-10 flex-shrink-0 cursor-pointer">
         <Link href='/'>
-        <Image src={RedditIcon} layout="fill" alt={RedditIcon} />
+        <Image src={RedditIcon} layout="fill" alt={"RedditIcon"} />
         </Link>
       </div>
       <div className="flex items-center mx-7 xl:min-w-[300px] ">
