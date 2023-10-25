@@ -15,7 +15,7 @@ export default function Home() {
   });
 
   const subreddits: Subreddit[] = data?.subredditPaginatedList;
-  console.log(data, error);
+  //console.log(data, error);
   return (
     <div className="my-7 mx-auto max-w-5xl">
       <Toaster />

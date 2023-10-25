@@ -43,17 +43,18 @@ function PostBox({subreddit} : Props) {
 
 useEffect(()=>{
 
-  if(session){
+  if( session?.user){
     console.log('here')
-    setprofile(session.user.image)
+    setprofile(session?.user?.image)
   }
-},[session])
+},[session,session?.user])
 
   const onSubmit = handleSubmit(async (formData) => {
     const notification = toast.loading("Creating new post...");
  //const profile = session?.user?.image;
  console.log(profile)
     try {
+      console.log(profile)
       const {
         data: { subredditListByTopic },
       } = await client.query({
@@ -82,7 +83,7 @@ useEffect(()=>{
 
 console.log(insertSubreddit , 'insert topic')
 
-
+console.log(profile)
 
         const data = await addPost({
           // mutation: ADD_POST,
@@ -99,6 +100,7 @@ console.log(insertSubreddit , 'insert topic')
         console.log(data , 'insert post')
 
       } else {
+        console.log(profile)
         const data = await addPost({
           // mutation: ADD_POST,
           variables: {
