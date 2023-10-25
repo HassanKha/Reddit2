@@ -12,7 +12,7 @@ type Post {
   created_at: DateTime!
   id: ID!
   image: String
-  subreddit_id: ID
+  subreddit_id: ID!
   title: String!
   username: String
   postprofile: String!
@@ -36,7 +36,7 @@ type Post {
 
 type Subreddit {
   created_at: DateTime!
-  id: ID!
+  id: ID
   topic: String!
   subredditprofile: String!
 }

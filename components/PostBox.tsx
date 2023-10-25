@@ -67,22 +67,25 @@ function PostBox({subreddit} : Props) {
             topic: subreddit || formData.subreddit,
             subredditprofile: profile
           },
-        });
+        }).then((res)=> res);
+
 console.log(insertSubreddit , 'insert topic')
-        const {
-          data: { insertPost },
-        } = await addPost({
+
+
+
+        const data = await addPost({
           // mutation: ADD_POST,
           variables: {
             body: formData.postBody,
             image: image,
-            subreddit_id: insertSubreddit?.[0]?.id,
+            subreddit_id:  insertSubreddit.id,
             title: formData.postTitle,
             username: session?.user?.name,
             postprofile: profile,
           }
-        });
-        console.log(insertPost , 'insert post')
+        }).then((res)=> res);
+
+        console.log(data , 'insert post')
 
       } else {
         const data = await addPost({
