@@ -25,6 +25,7 @@ export const ADD_POST = gql`
       subreddit_id
       title
       username
+      postprofile
     }
   }
 `;
